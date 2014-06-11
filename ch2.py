@@ -1,3 +1,64 @@
+import operator
+
+# Problem 2.
+
+def sum_num(lst):
+    """
+    >>> sum_num([1, 2, 3])
+    4
+    """
+    return reduce(operaor.add, lst)
+
+# Problem 3.
+
+def sum_str(lst):
+    """
+    >>> sum_str(["hello", "world"])
+    "helloworld"
+    >>> sum_str(["aa", "bb", "cc"])
+    "aabbcc"
+    """
+    return ''.join(x)
+
+# Problem 4.
+
+def product(lst):
+    """
+    >>> product([1, 2, 3])
+    6
+    """
+    return reduce(operator.mul, lst)
+
+# Problem 5.
+
+def factorial(num):
+    """
+    >>> factorial(4)
+    24
+    """
+    return product(map(lambda x: x+1, range(4))
+
+# Problem 6.
+
+def reverse(lst):
+    """
+    >>> reverse([1, 2, 3, 4])
+    [4, 3, 2, 1]
+    >>> reverse(reverse([1, 2, 3, 4]))
+    [1, 2, 3, 4]
+    """
+    return lst[::-1]
+
+# Problem 8.
+
+def cumulative_sum(lst):
+    """
+    >>> cumulative_sum([1, 2, 3, 4])
+    [1, 3, 6, 10]
+    >>> cumulative_sum([4, 3, 2, 1])
+    [4, 7, 9, 10]
+    """
+
 def group(lst, size):
     """
     >>> group([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)
