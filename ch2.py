@@ -1,5 +1,6 @@
 import operator
 
+
 # Problem 2.
 
 def sum_num(lst):
@@ -18,7 +19,7 @@ def sum_str(lst):
     >>> sum_str(["aa", "bb", "cc"])
     "aabbcc"
     """
-    return ''.join(x)
+    return ''.join(lst)
 
 # Problem 4.
 
@@ -36,7 +37,7 @@ def factorial(num):
     >>> factorial(4)
     24
     """
-    return product(map(lambda x: x+1, range(4))
+    return product(map(lambda x: x+1, range(4)))
 
 # Problem 6.
 
@@ -58,6 +59,55 @@ def cumulative_sum(lst):
     >>> cumulative_sum([4, 3, 2, 1])
     [4, 7, 9, 10]
     """
+    res = []
+    for i in xrange(len(lst)):
+        res[i] = sum_num(lst[:i+1])
+    return res
+
+# Problem 9.
+
+def cumulative_product(lst):
+    """
+    >>> cumulative_product([1, 2, 3, 4])
+    [1, 2, 6, 24]
+    >>> cumulative_product([4, 3, 2, 1])
+    [4, 12, 24, 24]
+    """
+    res = []
+    for i in xrange(len(lst)):
+        res[i] = product(lst[:i+1])
+    return res
+
+# Problem 10.
+
+def unique(lst):
+    """
+    >>> unique([1, 2, 1, 3, 2, 5])
+    [1, 2, 3, 5]
+    """
+    return list(set(lst))
+
+def unique_rec(lst):
+    """
+    >>> unique_rec([1, 2, 1, 3, 2, 5])
+    [1, 2, 3, 5]
+    """
+    if len(lst) == 1:
+        return lst
+    elif lst[-1] in lst[0:-1]:
+        return unique_rec(lst[0:-1])
+    else:
+        return unique_rec(lst[0:-1]) + [lst[-1]]
+
+# problem 11.
+
+def dups(lst):
+    """
+    >>> dups([1, 2, 1, 3, 2, 5])
+    [1, 2]
+    """
+    pass
+
 
 def group(lst, size):
     """
@@ -71,31 +121,12 @@ def group(lst, size):
         new.append(lst[i:i+size])
     return new
 
-def unique1(lst):
+def unique_str(lst, key=lambda x:x):
     """
-    >>> unique1([1, 2, 1, 3, 2, 5])
-    [1, 2, 3, 5]
-    """
-    if len(lst) == 1:
-        return lst
-    elif lst[-1] in lst[0:-1]:
-        return unique1(lst[0:-1])
-    else:
-        return unique1(lst[0:-1]) + [lst[-1]]
-
-def unique2(lst, key=lambda x:x):
-    """
-    >>> unique2(['python', 'java', 'Python', 'Java'], key=lambda s: s.lower())
+    >>> unique_str(['python', 'java', 'Python', 'Java'], key=lambda s: s.lower())
     ['python', 'java']
     """
-    return unique1(map(key, lst))
-
-def unique3(lst):
-    """
-    >>> unique3([1, 2, 1, 3, 2, 5])
-    [1, 2, 3, 5]
-    """
-    return list(set(lst))
+    return unique(map(key, lst))
 
 def extsort(lst):
     """
