@@ -99,15 +99,16 @@ def unique_rec(lst):
     else:
         return unique_rec(lst[0:-1]) + [lst[-1]]
 
-# problem 11.
+# Problem 11.
 
 def dups(lst):
     """
     >>> dups([1, 2, 1, 3, 2, 5])
     [1, 2]
     """
-    pass
+    return filter(lambda x: lst.count(x) == 1, lst)
 
+# Problem 12.
 
 def group(lst, size):
     """
@@ -121,6 +122,17 @@ def group(lst, size):
         new.append(lst[i:i+size])
     return new
 
+# Problem 13.
+
+def lensort(lst):
+    """
+    >>> lensort(['python', 'perl', 'java', 'c', 'haskell', 'ruby'])
+    ['c', 'perl', 'java', 'ruby', 'python', 'haskell']
+    """
+    return lst.sorted(key=lambda x: len(x))
+
+# Problem 14.
+
 def unique_str(lst, key=lambda x:x):
     """
     >>> unique_str(['python', 'java', 'Python', 'Java'], key=lambda s: s.lower())
@@ -128,12 +140,40 @@ def unique_str(lst, key=lambda x:x):
     """
     return unique(map(key, lst))
 
+# Problem 16.
+
 def extsort(lst):
     """
     >>> extsort(['a.c', 'a.py', 'b.py', 'bar.txt', 'foo.txt', 'x.c'])
     ['a.c', 'x.c', 'a.py', 'b.py', 'bar.txt', 'foo.txt']
     """
     return sorted(lst, key=lambda x: x.split('.')[1])
+
+# Problem 17.
+# Reference to reverse.py
+
+# Problem 18.
+# Reference to reverse_line.py
+
+# Problem 19.
+# Reference to head.py and tail.py
+
+# Problem 20.
+# Reference to grep.py
+
+# Problem 21.
+# Reference to wrap.py
+
+# Problem 22.
+# Reference to wordwrap.py
+
+# Problem 23.
+# Reference to center_align.py
+
+
+
+
+
 
 if __name__ == '__main__':
     import doctest
