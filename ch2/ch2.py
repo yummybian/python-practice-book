@@ -150,10 +150,10 @@ def extsort(lst):
     return sorted(lst, key=lambda x: x.split('.')[1])
 
 # Problem 17.
-# Reference to reverse.py
+# Reference to reverse1.py
 
 # Problem 18.
-# Reference to reverse_line.py
+# Reference to reverse2.py
 
 # Problem 19.
 # Reference to head.py and tail.py
@@ -169,8 +169,6 @@ def extsort(lst):
 
 # Problem 23.
 # Reference to center_align.py
-
-
 
 
 
