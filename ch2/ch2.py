@@ -1,4 +1,5 @@
 import operator
+import string
 
 
 # Problem 2.
@@ -8,7 +9,7 @@ def sum_num(lst):
     >>> sum_num([1, 2, 3])
     4
     """
-    return reduce(operaor.add, lst)
+    return reduce(operator.add, lst)
 
 # Problem 3.
 
@@ -150,30 +151,128 @@ def extsort(lst):
     return sorted(lst, key=lambda x: x.split('.')[1])
 
 # Problem 17.
-# Reference to reverse1.py
+# Refer to reverse1.py
 
 # Problem 18.
-# Reference to reverse2.py
+# Refer to reverse2.py
 
 # Problem 19.
-# Reference to head.py and tail.py
+# Refer to head.py and tail.py
 
 # Problem 20.
-# Reference to grep.py
+# Refer to grep.py
 
 # Problem 21.
-# Reference to wrap.py
+# Refer to wrap.py
 
 # Problem 22.
-# Reference to wordwrap.py
+# Refer to wordwrap.py
 
-# Problem 23.
-# Reference to center_align.py
+# Problem 24.
+
+def zip(lst1, lst2):
+    """
+    >>> zip([1, 2, 3], ["a", "b", "c"])
+    [(1, "a"), (2, "b"), (3, "c")]
+    """
+    return [(lst1[i], lst2[i]) for i in range(min(len(lst1, lst2)))]
+
+# Problem 25.
+
+def square(x):
+    return x * x
+
+def map(fn, lst):
+    """
+    >>> map(square, range(5))
+    [0, 1, 4, 9, 16]
+    """
+    return [fn(x) for x in lst]
+
+# Problem 26.
+
+def even(x): return x %2 == 0
+
+def filter(fn, lst):
+    return [x for x in lst if fn(x)]
+
+# Problem 27.
+
+def triplets(n):
+    """
+    >>> triplets(5)
+    [(1, 1, 2), (1, 2, 3), (1, 3, 4), (2, 2, 4)]
+    """
+    return [(x, y, z) for x in range(n) for y in range(x, n) for z in range(y, n) if x+y==z]
+
+# Problem 28.
+
+def enumerate(lst):
+    """
+    >>> enumerate(["a", "b", "c"])
+    [(0, "a"), (1, "b"), (2, "c")]
+    >>> for index, value in enumerate(["a", "b", "c"]):
+    ...     print index, value
+    0 a
+    1 b
+    2 c
+    """
+    return [(i, lst[i]) for i in range(len(lst))]
+
+# Problem 29.
+
+def array(row, col):
+    """
+    >>> a = array(2, 3)
+    >>> a
+    [[None, None, None], [None, None, None]]
+    >>> a[0][0] = 5
+    [[5, None, None], [None, None, None]]
+    """
+    return [[None for c in range(col)] for r in range(row)]
 
 
+# Problem 30.
+# Refer to parse_csv.py
 
+
+# Problem 31.
+# Refer to parse.py
+
+# Problem 32.
+
+def mutate(word):
+    """
+    >>> words = mutate('hello')
+    >>> 'helo' in words
+    True
+    >>> 'cello' in words
+    True
+    >>> 'helol' in words
+    True
+    """
+    inserting = [word[:i]+x+word[i:] for i in range(len(word)) for x in list(string.ascii_lowercase)]
+    deleting = [word[:i]+word[i+1:] for i in range(len(word))]
+    replacing = [word[:i]+x+word[i+1:] for i in range(len(word)) for x in list(string.ascii_lowercase)]
+    swapping = [word[:i]+word[i+1]+word[i]+word[i+2:] for i in range(len(word)-1)]
+    all = inserting + deleting + replacing + swapping
+    return all
+
+# Problem 33.
+
+def nearly_equal(word1, word2):
+    """
+    >>> nearly_equal('python', 'perl')
+    False
+    >>> nearly_equal('perl', 'pearl')
+    True
+    >>> nearly_equal('python', 'jython')
+    True
+    >>> nearly_equal('man', 'woman')
+    False
+    """
+    return True if word2 in mutate(word1) else False
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-
