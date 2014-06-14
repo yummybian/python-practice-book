@@ -203,7 +203,8 @@ def triplets(n):
     >>> triplets(5)
     [(1, 1, 2), (1, 2, 3), (1, 3, 4), (2, 2, 4)]
     """
-    return [(x, y, z) for x in range(n) for y in range(x, n) for z in range(y, n) if x+y==z]
+    return [(x, y, z) for x in range(n) for y in range(x, n)
+            for z in range(y, n) if x+y==z]
 
 # Problem 28.
 
@@ -251,9 +252,11 @@ def mutate(word):
     >>> 'helol' in words
     True
     """
-    inserting = [word[:i]+x+word[i:] for i in range(len(word)) for x in list(string.ascii_lowercase)]
+    inserting = [word[:i]+x+word[i:] for i in range(len(word))
+            for x in list(string.ascii_lowercase)]
     deleting = [word[:i]+word[i+1:] for i in range(len(word))]
-    replacing = [word[:i]+x+word[i+1:] for i in range(len(word)) for x in list(string.ascii_lowercase)]
+    replacing = [word[:i]+x+word[i+1:] for i in range(len(word))
+            for x in list(string.ascii_lowercase)]
     swapping = [word[:i]+word[i+1]+word[i]+word[i+2:] for i in range(len(word)-1)]
     all = inserting + deleting + replacing + swapping
     return all
@@ -272,6 +275,63 @@ def nearly_equal(word1, word2):
     False
     """
     return True if word2 in mutate(word1) else False
+
+# Problem 34.
+
+def descending_order(fun):
+    def inner(words):
+        frequency = fun(words)
+        return dict(frequency.sorted(frequency.iteritems(), key=operator.itemgetter(1)))
+    return inner
+
+@descending_order
+def word_frequency(words):
+    """Returns frequency of each word given a list of words.
+
+        >>> word_frequency(['a', 'b', 'a'])
+        {'a': 2, 'b': 1}
+    """
+    frequency = {}
+    for w in words:
+        frequency[w] = frequency.get(w, 0) + 1
+    return frequency
+
+# Problem 36.
+
+def is_anagrams(word1, word2):
+    pass
+
+
+def anagrams(lst):
+    """
+    >>> anagrams(['eat', 'ate', 'done', 'tea', 'soup', 'node'])
+    [['eat', 'ate', 'tea], ['done', 'node'], ['soup']]
+    """
+    ana = {}
+    for word in lst:
+        ana.setdefault(word, word)
+        pass
+
+
+# Problem 37.
+
+def valuesort(d):
+    """
+    >>> valuesort({'x': 1, 'y': 2, 'a': 3})
+    [3, 1, 2]
+    """
+    return [value for key, value in d.sorted(d.iteritems(), key=operator.itemgetter(1))]
+
+
+# Problem 38.
+
+def invertdict(d):
+    """
+    >>> invertdict({'x': 1, 'y': 2, 'z': 3})
+    {1: 'x', 2: 'y', 3: 'z'}
+    """
+    return dict([(value, key) for key, value in d.iteritems()])
+
 
 if __name__ == '__main__':
     import doctest
