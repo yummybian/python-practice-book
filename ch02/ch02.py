@@ -251,11 +251,12 @@ def mutate(word):
     True
     """
     inserting = [word[:i]+x+word[i:] for i in range(len(word))
-            for x in list(string.ascii_lowercase)]
+                for x in list(string.ascii_lowercase)]
     deleting = [word[:i]+word[i+1:] for i in range(len(word))]
     replacing = [word[:i]+x+word[i+1:] for i in range(len(word))
-            for x in list(string.ascii_lowercase)]
-    swapping = [word[:i]+word[i+1]+word[i]+word[i+2:] for i in range(len(word)-1)]
+                for x in list(string.ascii_lowercase)]
+    swapping = [word[:i]+word[i+1]+word[i]+word[i+2:]
+                for i in range(len(word)-1)]
     all = inserting + deleting + replacing + swapping
     return all
 
@@ -322,7 +323,8 @@ def valuesort(d):
     >>> valuesort({'x': 1, 'y': 2, 'a': 3})
     [3, 1, 2]
     """
-    return [value for key, value in sorted(d.iteritems(), key=operator.itemgetter(0))]
+    return [value for key, value in sorted(d.iteritems(),
+            key=operator.itemgetter(0))]
 
 # Problem 38.
 
