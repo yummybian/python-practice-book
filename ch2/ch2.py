@@ -7,7 +7,7 @@ import string
 def sum_num(lst):
     """
     >>> sum_num([1, 2, 3])
-    4
+    6
     """
     return reduce(operator.add, lst)
 
@@ -16,9 +16,9 @@ def sum_num(lst):
 def sum_str(lst):
     """
     >>> sum_str(["hello", "world"])
-    "helloworld"
+    'helloworld'
     >>> sum_str(["aa", "bb", "cc"])
-    "aabbcc"
+    'aabbcc'
     """
     return ''.join(lst)
 
@@ -29,7 +29,7 @@ def product(lst):
     >>> product([1, 2, 3])
     6
     """
-    return reduce(operator.mul, lst)
+    return reduce(operator.mul, lst, 1)
 
 # Problem 5.
 
@@ -62,7 +62,7 @@ def cumulative_sum(lst):
     """
     res = []
     for i in xrange(len(lst)):
-        res[i] = sum_num(lst[:i+1])
+        res.append(sum_num(lst[:i+1]))
     return res
 
 # Problem 9.
@@ -76,7 +76,7 @@ def cumulative_product(lst):
     """
     res = []
     for i in xrange(len(lst)):
-        res[i] = product(lst[:i+1])
+        res.append(product(lst[:i+1]))
     return res
 
 # Problem 10.
@@ -107,7 +107,7 @@ def dups(lst):
     >>> dups([1, 2, 1, 3, 2, 5])
     [1, 2]
     """
-    return filter(lambda x: lst.count(x) == 1, lst)
+    return list(set(filter(lambda x: lst.count(x) != 1, lst)))
 
 # Problem 12.
 
@@ -130,7 +130,7 @@ def lensort(lst):
     >>> lensort(['python', 'perl', 'java', 'c', 'haskell', 'ruby'])
     ['c', 'perl', 'java', 'ruby', 'python', 'haskell']
     """
-    return lst.sorted(key=lambda x: len(x))
+    return sorted(lst, key=lambda x: len(x))
 
 # Problem 14.
 
@@ -173,9 +173,9 @@ def extsort(lst):
 def zip(lst1, lst2):
     """
     >>> zip([1, 2, 3], ["a", "b", "c"])
-    [(1, "a"), (2, "b"), (3, "c")]
+    [(1, 'a'), (2, 'b'), (3, 'c')]
     """
-    return [(lst1[i], lst2[i]) for i in range(min(len(lst1, lst2)))]
+    return [(lst1[i], lst2[i]) for i in range(min(len(lst1), len(lst2)))]
 
 # Problem 25.
 
@@ -203,7 +203,7 @@ def triplets(n):
     >>> triplets(5)
     [(1, 1, 2), (1, 2, 3), (1, 3, 4), (2, 2, 4)]
     """
-    return [(x, y, z) for x in range(n) for y in range(x, n)
+    return [(x, y, z) for x in range(1, n) for y in range(x, n)
             for z in range(y, n) if x+y==z]
 
 # Problem 28.
@@ -211,7 +211,7 @@ def triplets(n):
 def enumerate(lst):
     """
     >>> enumerate(["a", "b", "c"])
-    [(0, "a"), (1, "b"), (2, "c")]
+    [(0, 'a'), (1, 'b'), (2, 'c')]
     >>> for index, value in enumerate(["a", "b", "c"]):
     ...     print index, value
     0 a
@@ -227,8 +227,6 @@ def array(row, col):
     >>> a = array(2, 3)
     >>> a
     [[None, None, None], [None, None, None]]
-    >>> a[0][0] = 5
-    [[5, None, None], [None, None, None]]
     """
     return [[None for c in range(col)] for r in range(row)]
 
@@ -278,40 +276,44 @@ def nearly_equal(word1, word2):
 
 # Problem 34.
 
-def descending_order(fun):
-    def inner(words):
-        frequency = fun(words)
-        return dict(frequency.sorted(frequency.iteritems(), key=operator.itemgetter(1)))
-    return inner
-
-@descending_order
 def word_frequency(words):
     """Returns frequency of each word given a list of words.
-
-        >>> word_frequency(['a', 'b', 'a'])
-        {'a': 2, 'b': 1}
+    >>> word_frequency(['a', 'b', 'a'])
+    {'a': 2, 'b': 1}
     """
     frequency = {}
     for w in words:
         frequency[w] = frequency.get(w, 0) + 1
-    return frequency
+    return dict(sorted(frequency.iteritems(), key=operator.itemgetter(1)))
 
 # Problem 36.
 
-def is_anagrams(word1, word2):
-    pass
-
+def find_key(keys, word):
+    for key in keys:
+        if len(key) != len(word):
+            continue
+        elif sorted(list(key)) == sorted(list(word)):
+            return key
+        else:
+            continue
+    return None
 
 def anagrams(lst):
     """
     >>> anagrams(['eat', 'ate', 'done', 'tea', 'soup', 'node'])
-    [['eat', 'ate', 'tea], ['done', 'node'], ['soup']]
+    [['eat', 'ate', 'tea'], ['done', 'node'], ['soup']]
     """
-    ana = {}
+    keys = []
+    res = []
     for word in lst:
-        ana.setdefault(word, word)
-        pass
+        key = find_key(keys, word)
+        if key is not None:
+            res[keys.index(key)].append(word)
+        else:
+            res.append([word])
+            keys.append(word)
 
+    return res
 
 # Problem 37.
 
@@ -320,8 +322,7 @@ def valuesort(d):
     >>> valuesort({'x': 1, 'y': 2, 'a': 3})
     [3, 1, 2]
     """
-    return [value for key, value in d.sorted(d.iteritems(), key=operator.itemgetter(1))]
-
+    return [value for key, value in sorted(d.iteritems(), key=operator.itemgetter(0))]
 
 # Problem 38.
 
@@ -331,7 +332,6 @@ def invertdict(d):
     {1: 'x', 2: 'y', 3: 'z'}
     """
     return dict([(value, key) for key, value in d.iteritems()])
-
 
 if __name__ == '__main__':
     import doctest
