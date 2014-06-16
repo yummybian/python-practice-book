@@ -6,9 +6,11 @@ def wrap(filename, width):
     w = int(width)
     with open(filename) as f:
         for line in f:
-            res.append(line.strip()[:w])
-            if len(line) > w:
-                res.append(line.strip()[w:])
+            for i in range(0, len(line), w):
+                if len(line) <= i+w:
+                    res.append(line[i:].strip())
+                    break;
+                res.append(line[i:i+w])
     return res
 
 def main():
@@ -21,14 +23,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
 

@@ -1,32 +1,31 @@
 import sys
+import string
 
+def process_line(line, width):
+    lst = []
+    i, end = 0, 0
+    step = int(width)
+    length = len(line)
+    while i < length:
+        if i+step < length:
+            if line[i+step] != ' ':
+                end = string.rindex(line[:i+step], ' ')
+                lst.append(line[i:end])
+                i = end + 1
+            else:
+                lst.append(line[:i])
+                i = i + 1
+        else:
+            lst.append(line[i:].strip())
+            break;
+
+    return lst
 
 def wordwrap(filename, width):
     res = []
-    def process_line(line):
-        start = 0
-        acc = 0
-        lst = []
-        step = int(width)
-        for i, c in enumerate(line):
-
-
-        for idx, word in enumerate(line):
-            print line
-            acc = acc + len(word)
-            if acc < int(width):
-                continue
-            print idx, line[start:idx]
-
-            lst.append(line[start:idx])
-            start = idx
-            acc = 0
-        return lst
-
     with open(filename) as f:
         for line in f:
-            print '-------'
-            res.extend(process_line(line.split()))
+            res.extend(process_line(line, width))
     return res
 
 def main():
