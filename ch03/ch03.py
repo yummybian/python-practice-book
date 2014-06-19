@@ -10,9 +10,6 @@ import re
 # Problem 5.
 # Refer to wget.py
 
-# Problem 6.
-# Refer to antihtml.py
-
 # Problem 7.
 def make_slug(name):
     '''
