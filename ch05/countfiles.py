@@ -2,18 +2,20 @@ import sys
 import os
 
 
-def find_files(path):
+def count_files(path):
+    cnt = 0
     for root, dirs, files in os.walk(path):
         for name in files:
-            yield os.path.join(root, name)
+            if name.endswith('.py'):
+                cnt += 1
+    return cnt
 
 def main():
     if len(sys.argv) != 2:
         print 'Usage: python {0} dir'.format(sys.argv[0])
         sys.exit(1)
 
-    for f in find_files(sys.argv[1]):
-        print f,
+    return count_files(sys.argv[1]):
 
 if __name__ == '__main__':
     main()
