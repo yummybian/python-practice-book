@@ -12,10 +12,6 @@ def product(a, b):
 # Problem 2.
 
 def flatten_dict(d, parent_key=None, result=None):
-    '''
-    >>> flatten_dict({'a': 1, 'b': {'x': 2, 'y': 3}, 'z': 5, 'c': 4})
-    {'a': 1, 'b.x': 2, 'b.y': 3, 'c': 4}
-    '''
     if result is None:
         result = {}
 
@@ -23,15 +19,13 @@ def flatten_dict(d, parent_key=None, result=None):
         if isinstance(value, dict):
             parent_key = key
             flatten_dict(value, parent_key, result)
+            parent_key = None
         else:
             if parent_key:
-                print key, value
                 key = '.'.join([parent_key, key])
                 result[key] = value
             else:
                 result[key] = value
-    print '--------'
-    parent_key = None
 
     return result
 
