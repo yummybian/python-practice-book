@@ -4,8 +4,8 @@ import os
 
 def count_per_file(name):
     with open(name) as f:
-        return len(filter(lambda line: not line.strip() or line.startswith('#')
-                    for line in f.readlines()))
+        return len(filter(lambda line: not line.strip() or
+                   line.startswith('#'), f.readlines()))
 
 def iter_files(path):
     for root, dirs, files in os.walk(path):

@@ -13,7 +13,7 @@ def main():
         sys.exit(1)
 
     for f in find_files(sys.argv[1]):
-        print f,
+        print f
 
 if __name__ == '__main__':
     main()

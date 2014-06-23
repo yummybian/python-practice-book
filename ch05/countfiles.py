@@ -15,7 +15,7 @@ def main():
         print 'Usage: python {0} dir'.format(sys.argv[0])
         sys.exit(1)
 
-    return count_files(sys.argv[1]):
+    print count_files(sys.argv[1])
 
 if __name__ == '__main__':
     main()
