@@ -20,16 +20,23 @@ def reverse_iter(lst):
         yield x
     raise StopIteration()
 
-
 # Problem 2.
-# Refer to
+# Refer to printlines.py
 
+# Problem 3.
+# Refer to findfiles.py
+
+# Problem 4.
+# Refer to countfiles.py
 
 # Problem 5.
-# Refer to wget.py
+# Refer to countlines1.py
 
+# Problem 6.
+# Refer to countlines2.py
 
 # Problem 7.
+# Refer to split.py
 
 
 # Problem 8.
