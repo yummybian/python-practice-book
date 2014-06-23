@@ -1,3 +1,6 @@
+import time
+
+
 # Problem 1.
 
 def product(a, b):
@@ -80,8 +83,8 @@ def json_encode(data):
     elif isinstance(data, (tuple, list)):
         return "[" + ", ".join(json_encode(d) for d in data) + "]"
     elif isinstance(data, dict):
-        return "{" + ", ".join('{key}:{value}'.format(key=json_encode(k), value=json_encode(v))
-                for k, v in data.iteritems()) + "}"
+        return "{" + ", ".join('{key}:{value}'.format(key=json_encode(k),
+            value=json_encode(v)) for k, v in data.iteritems()) + "}"
     else:
         raise TypeError("%s is not JSON serializable" % repr(data))
 
@@ -91,6 +94,73 @@ def escape_string(s):
     s = s.replace("\t", "\\t")
     s = s.replace("\n", "\\n")
     return s
+
+# Problem 8.
+
+def count_change(n, lst):
+    '''
+    >>> count_change(10, [1, 5])
+    3
+    >>> count_change(10, [1, 2])
+    6
+    >>> count_change(100, [1, 5, 10, 25, 50])
+    292
+    '''
+    if n == 0:
+        return 1
+    if n < 0 or len(lst) == 0:
+        return 0
+    return count_change(n, lst[1:]) + count_change(n-lst[0], lst)
+
+# Problem 9.
+
+def permute(lst):
+    '''
+    >>> permute([1, 2, 3])
+    [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+    '''
+    def iter_permute(lst):
+        if len(lst) == 0:
+            yield []
+
+        for i in range(len(lst)):
+            for cc in permute(lst[:i]+lst[i+1:]):
+                yield [lst[i]] + cc
+
+    return list(iter_permute(lst))
+
+# Problem 10.
+
+def profile(f):
+    def g(*args, **kwargs):
+        start_time = time.time()
+        f(*args, **kwargs)
+        print "Time taken: {consumed}".format(consumed=time.time()-start_time)
+
+    return g
+
+# Problem 11.
+
+def square(x): return x * x
+
+def vectorize(f):
+    '''
+    >>> f = vectorize(square)
+    >>> f([1, 2, 3])
+    [1, 4, 9]
+    >>> g = vectorize(len)
+    >>> g(["hello", "world"])
+    [5, 5]
+    >>> g([[1, 2], [2, 3, 4]])
+    [2, 3]
+    '''
+    def g(lst):
+        res = []
+        for x in lst:
+            res.append(f(x))
+        return res
+
+    return g
 
 
 if __name__ == '__main__':
